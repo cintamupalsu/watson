@@ -1,0 +1,30 @@
+<% provide(:title, "Natural Language Understanding") %>
+<div class="container">
+    <h1>Introduction</h1>
+    <p>
+        Analyze various features of text content at scale. Provide text, raw HTML, or a public URL and IBM Watson Natural Language Understanding will give you results for the features you request. The service cleans HTML content before analysis by default, so the results can ignore most advertisements and other unwanted content.
+        You can create custom models with Watson Knowledge Studio to detect custom entities and relations in Natural Language Understanding.
+    </p>
+</div>
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#categoryExplanation" aria-expanded="false" aria-controls="categoryExplanation">
+    Categories
+  </button>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#conceptExplanation" aria-expanded="false" aria-controls="conceptExplanation">
+    Concepts
+  </button>
+</p>
+<div class="collapse" id="categoryExplanation">
+  <div class="container">
+    <h2>Category</h2>
+    <p>Returns a five-level taxonomy of the content. The top three categories are returned.</p>
+    <%= link_to "Try categories", nl_category_path, class:"btn btn-lg btn-primary" %>
+  </div>
+</div>
+<div class="collapse" id="conceptExplanation">
+  <div class="container">
+    <h2>Concept</h2>
+    <p>Returns high-level concepts in the content. For example, a research paper about deep learning might return the concept, "Artificial Intelligence" although the term is not mentioned.</p>
+    <%= link_to "Try concept", signup_path, class:"btn btn-lg btn-primary" %>
+  </div>
+</div>
