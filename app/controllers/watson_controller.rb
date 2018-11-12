@@ -18,7 +18,7 @@ class WatsonController < ApplicationController
     
     natural_language_understanding = IBMWatson::NaturalLanguageUnderstandingV1.new(
     version: "2018-03-16",
-    iam_apikey: ENV['NATLANG'],
+    iam_apikey: "oJrgtrqPVnwQs40mD_nOKwbPXzBuV96Xv53c4eL_0aE9",
     url: "https://gateway.watsonplatform.net/natural-language-understanding/api"
     )
 
@@ -26,13 +26,7 @@ class WatsonController < ApplicationController
     url: "www.ibm.com",
     features: {categories: {}}
     )
-    if user && user.authenticate(params[:session][:password])
-      log_in user
-      redirect_to user
-    else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
-    end
+   
 
   end
   
