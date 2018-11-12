@@ -14,7 +14,7 @@ class WatsonController < ApplicationController
   
   def nl_category_result
     @url = params[:natural][:url]
-    @dummy = ENV['NATLANG']
+    #@dummy = ENV['NATLANG']
     
     natural_language_understanding = IBMWatson::NaturalLanguageUnderstandingV1.new(
     version: "2018-03-16",
