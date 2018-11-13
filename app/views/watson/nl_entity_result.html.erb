@@ -1,0 +1,127 @@
+<% provide(:title, "NLU Entity Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <h1>Natural Language Understanding</h1>
+      <h3 class="center">Entity</h3>
+      <h4>Usage</h4>
+      <div class="col-md-2 col-md-offset-1">
+        <strong><p>Text units </p>  
+        <p>Text characters</p>
+        <p>Features</p></strong>
+      </div>    
+      
+      <div class="col-md-9">
+        <p><%= @response.result["usage"]["text_units"]%></p>
+        <p><%= @response.result["usage"]["text_characters"]%></p>
+        <p><%= @response.result["usage"]["features"]%></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h4>Language:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["language"] %></p>
+      </div>
+    </div>
+    
+    <% if @formation==2 %>
+      <div class="row">
+        <h4>Retrieved URL:</h4>
+        <div class="col-md-11 col-md-offset-1">
+          <p><%= @response.result["retrieved_url"] %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <h4>Entities:</h4>
+      <% (0..@response.result["entities"].length-1).each do |i| %>
+        <div class="row">
+          <div class="col-md-1"><strong><%= (i+1).to_s %>.</strong></div>
+          <div class="col-md-2"><p><strong>Type</strong></p></div>
+          <div class="col-md-9"><%=@response.result["entities"][i]["type"]%></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>Text</strong></p></div>
+          <div class="col-md-9"><%=@response.result["entities"][i]["text"]%></div>
+        </div>
+        <% if @response.result["entities"][i]["mentions"]!=nil %>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Mentions</strong></p></div>
+            <div class="col-md-9"><%=@response.result["entities"][i]["mentions"].length%> times</div>
+          </div>
+        <% end %>
+        <% if @response.result["entities"][i]["sentiment"]!=nil %>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Sentiment</strong></p></div>
+            <div class="col-md-9">
+              <p><strong>Score</strong> <%=@response.result["entities"][i]["sentiment"]["score"]%></p>
+              <p><strong>Label</strong> <%=@response.result["entities"][i]["sentiment"]["label"]%></p>
+            </div>
+          </div>
+        <% end %>
+        <% if @response.result["entities"][i]["emotion"]!=nil %>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Emotion</strong></p></div>
+            <div class="col-md-9">
+              <p><strong>Sadness</strong> <%=@response.result["entities"][i]["emotion"]["sadness"]%></p>
+              <p><strong>Joy</strong> <%=@response.result["entities"][i]["emotion"]["joy"]%></p>
+              <p><strong>Fear</strong> <%=@response.result["entities"][i]["emotion"]["fear"]%></p>
+              <p><strong>Disgust</strong> <%=@response.result["entities"][i]["emotion"]["disgust"]%></p>
+              <p><strong>Anger</strong> <%=@response.result["entities"][i]["emotion"]["anger"]%></p>
+            </div>
+          </div>        
+        <% end %>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>Relevance</strong></p></div>
+          <div class="col-md-9"><%=@response.result["entities"][i]["relevance"]%></div>
+        </div>
+        <div class="row">
+          <% if @response.result["entities"][i]["disambiguation"]!=nil %>
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Disambiguation</strong></p></div>
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-3"><p><strong>Subtype</strong></p></div>
+                <div class="col-md-9">
+                  <% (0..@response.result["entities"][i]["disambiguation"]["subtype"].length-1).each do |j| %>
+                    <p><strong><%= (j+1).to_s %>.</strong> <%= @response.result["entities"][i]["disambiguation"]["subtype"][j] %></p>
+                  <% end %>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-3"><p><strong>Name</strong></p></div>
+                <div class="col-md-9"><%= @response.result["entities"][i]["disambiguation"]["name"] %></div>
+              </div>
+              <div class="row">
+                <div class="col-md-3"><p><strong>dbpedia_resource</strong></p></div>
+                <div class="col-md-9"><%= @response.result["entities"][i]["disambiguation"]["dbpedia_resource"] %></div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>Count</strong></p></div>
+          <div class="col-md-9"><%=@response.result["entities"][i]["count"]%></div>
+        </div>        
+      <% end %>
+    </div>
+    <p>Try again? <%= link_to "yes", nl_emotion_path %></p>
+  </div>
+</div>

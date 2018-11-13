@@ -1,0 +1,84 @@
+<% provide(:title, "NLU Keywords Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <h1>Natural Language Understanding</h1>
+      <h3 class="center">Keywords</h3>
+      <h4>Usage</h4>
+      <div class="col-md-2 col-md-offset-1">
+        <strong><p>Text units </p>  
+        <p>Text characters</p>
+        <p>Features</p></strong>
+      </div>    
+      
+      <div class="col-md-9">
+        <p><%= @response.result["usage"]["text_units"]%></p>
+        <p><%= @response.result["usage"]["text_characters"]%></p>
+        <p><%= @response.result["usage"]["features"]%></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h4>Language:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["language"] %></p>
+      </div>
+    </div>
+    
+    <% if @formation==2 %>
+      <div class="row">
+        <h4>Retrieved URL:</h4>
+        <div class="col-md-11 col-md-offset-1">
+          <p><%= @response.result["retrieved_url"] %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <h4>Keywords:</h4>
+      <% (0..@response.result["keywords"].length-1).each do |i| %>
+        <div class="row">
+          <div class="col-md-1"><strong><%= (i+1).to_s %>.</strong></div>
+          <div class="col-md-2"><p><strong>Text</strong></p></div>
+          <div class="col-md-9"><%=@response.result["keywords"][i]["text"]%></div>
+        </div>
+        <% if @response.result["keywords"][i]["sentiment"]!=nil %>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Sentiment</strong></p></div>
+            <div class="col-md-9">
+              <p><strong>Score</strong> <%=@response.result["keywords"][i]["sentiment"]["score"]%></p>
+            </div>
+          </div>
+        <% end %>
+        <% if @response.result["keywords"][i]["emotion"]!=nil %>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><p><strong>Emotion</strong></p></div>
+            <div class="col-md-9">
+              <p><strong>Sadness</strong> <%=@response.result["keywords"][i]["emotion"]["sadness"]%></p>
+              <p><strong>Joy</strong> <%=@response.result["keywords"][i]["emotion"]["joy"]%></p>
+              <p><strong>Fear</strong> <%=@response.result["keywords"][i]["emotion"]["fear"]%></p>
+              <p><strong>Disgust</strong> <%=@response.result["keywords"][i]["emotion"]["disgust"]%></p>
+              <p><strong>Anger</strong> <%=@response.result["keywords"][i]["emotion"]["anger"]%></p>
+            </div>
+          </div>        
+        <% end %>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>Relevance</strong></p></div>
+          <div class="col-md-9"><%=@response.result["keywords"][i]["relevance"]%></div>
+        </div>
+      <% end %>
+    </div>
+    <p>Try again? <%= link_to "yes", nl_keyword_path %></p>
+  </div>
+</div>

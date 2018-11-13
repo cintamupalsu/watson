@@ -1,0 +1,85 @@
+<% provide(:title, "NLU Metadata Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <h1>Natural Language Understanding</h1>
+      <h3 class="center">Metadata</h3>
+      <h4>Usage</h4>
+      <div class="col-md-2 col-md-offset-1">
+        <strong><p>Text units </p>  
+        <p>Text characters</p>
+        <p>Features</p></strong>
+      </div>    
+      
+      <div class="col-md-9">
+        <p><%= @response.result["usage"]["text_units"]%></p>
+        <p><%= @response.result["usage"]["text_characters"]%></p>
+        <p><%= @response.result["usage"]["features"]%></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h4>Language:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["language"] %></p>
+      </div>
+    </div>
+    
+    <% if @formation==2 %>
+      <div class="row">
+        <h4>Retrieved URL:</h4>
+        <div class="col-md-11 col-md-offset-1">
+          <p><%= @response.result["retrieved_url"] %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <h4>Entities:</h4>
+      <div class=row>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><p><strong>Title</strong></p></div>
+        <div class="col-md-9">
+          <p><%=@response.result["metadata"]["title"]%></p>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><p><strong>Publication date</strong></p></div>
+        <div class="col-md-9">
+          <p><%=@response.result["metadata"]["publication_date"]%></p>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><p><strong>Image</strong></p></div>
+        <div class="col-md-9">
+          <p><%=@response.result["metadata"]["image"]%></p>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><p><strong>Feeds</strong></p></div>
+        <div class="col-md-9">
+          <p><%=@response.result["metadata"]["feeds"]%></p>
+        </div>
+      </div>
+      <div class=row>
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><p><strong>Authors</strong></p></div>
+        <div class="col-md-9">
+          <p><%=@response.result["metadata"]["authors"]%></p>
+        </div>
+      </div>
+    </div>
+    <p>Try again? <%= link_to "yes", nl_metadata_path %></p>
+  </div>
+</div>

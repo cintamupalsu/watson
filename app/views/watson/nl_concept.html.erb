@@ -1,4 +1,4 @@
-<% provide(:title, "NLU Category") %>
+<% provide(:title, "NLU Concepts") %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -10,10 +10,10 @@
   </aside>
   <div class="col-md-8">
     <h1>Natural Language Understanding</h1>
-    <h3 class="center">Categories</h3>
+    <h3 class="center">Concepts</h3>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <%= form_for(:natural, url: nl_category_path) do |f| %>
+        <%= form_for(:natural, url: nl_concept_path) do |f| %>
     
           <%= f.label "Input format" %>
           <%= f.select(:formation) do %>
@@ -21,14 +21,16 @@
             <%= content_tag(:option, "URL", value: 2) %>
             <%= content_tag(:option, "HTML", value: 3) %>
           <% end %>
-          
+            
           <%= f.label "Input" %>
           <%= f.text_field :url, class: 'form-control' %>
           
+          <%= f.label :limit %>
+          <%= f.text_field :limit, class: 'form-control' %>
+
           <%= f.submit "Submit", class: "btn btn-primary" %>
         <% end %>
       </div>
     </div>    
   </div>
 </div>
-

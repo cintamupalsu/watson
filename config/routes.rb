@@ -23,6 +23,14 @@ Rails.application.routes.draw do
   post '/nl_category',       to: 'watson#nl_category_result'
   get  '/nl_concept',        to: 'watson#nl_concept'
   post '/nl_concept',        to: 'watson#nl_concept_result'
+  get  '/nl_emotion',        to: 'watson#nl_emotion'
+  post '/nl_emotion',        to: 'watson#nl_emotion_result'
+  get  '/nl_entity',         to: 'watson#nl_entity'
+  post '/nl_entity',         to: 'watson#nl_entity_result'
+  get  '/nl_keyword',        to: 'watson#nl_keyword'
+  post '/nl_keyword',        to: 'watson#nl_keyword_result'
+  get  '/nl_metadata',       to: 'watson#nl_metadata'
+  post '/nl_metadata',       to: 'watson#nl_metadata_result'
   
   get  'speech_to_text',     to: 'watson#speech_to_text'
   

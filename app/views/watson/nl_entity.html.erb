@@ -1,0 +1,59 @@
+<% provide(:title, "NLU Entities") %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h1>Natural Language Understanding</h1>
+    <h3 class="center">Entities</h3>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <%= form_for(:natural, url: nl_entity_path) do |f| %>
+    
+          <%= f.label "Input format" %>
+          <%= f.select(:formation) do %>
+            <%= content_tag(:option, "Text", value: 1) %>
+            <%= content_tag(:option, "URL", value: 2) %>
+            <%= content_tag(:option, "HTML", value: 3) %>
+          <% end %>
+            
+          <%= f.label "Input" %>
+          <%= f.text_field :url, class: 'form-control' %>
+          
+          <%= f.label :limit %>
+          <%= f.text_field :limit, class: 'form-control' %>
+
+          <%= f.label "Mentions" %>
+          <%= f.select(:mentions) do %>
+            <%= content_tag(:option, "False", value: 0) %>
+            <%= content_tag(:option, "True", value: 1) %>
+          <% end %>
+
+          <%= f.label "Model (何も書いてもいいです)" %>
+          <%= f.text_field :model, class: 'form-control' %>
+          
+          <%= f.label "Sentiment" %>
+          <%= f.select(:sentiment) do %>
+            <%= content_tag(:option, "False", value: 0) %>
+            <%= content_tag(:option, "True", value: 1) %>
+          <% end %>
+
+          <%= f.label "Emotion" %>
+          <%= f.select(:emotion) do %>
+            <%= content_tag(:option, "False", value: 0) %>
+            <%= content_tag(:option, "True", value: 1) %>
+          <% end %>
+
+
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+    <p>Model explanation <%= link_to "click here", "https://console.bluemix.net/docs/services/knowledge-studio/index.html#wks_overview_full" %></p>
+  </div>
+</div>

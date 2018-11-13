@@ -1,0 +1,83 @@
+<% provide(:title, "NLU Emotion Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <h1>Natural Language Understanding</h1>
+      <h3 class="center">Emotion</h3>
+      <h4>Usage</h4>
+      <div class="col-md-2 col-md-offset-1">
+        <strong><p>Text units </p>  
+        <p>Text characters</p>
+        <p>Features</p></strong>
+      </div>    
+      
+      <div class="col-md-9">
+        <p><%= @response.result["usage"]["text_units"]%></p>
+        <p><%= @response.result["usage"]["text_characters"]%></p>
+        <p><%= @response.result["usage"]["features"]%></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h4>Language:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["language"] %></p>
+      </div>
+    </div>
+    
+    <% if @formation==2 %>
+      <div class="row">
+        <h4>Retrieved URL:</h4>
+        <div class="col-md-11 col-md-offset-1">
+          <p><%= @response.result["retrieved_url"] %></p>
+        </div>
+      </div>
+    <% end %>
+
+
+    <div class="row">
+      <h4>Emotion:</h4>
+      <p><strong>Targets</strong></p>
+      <% (0..@response.result["emotion"]["targets"].length-1).each do |i| %>
+        <div class="row">
+          <div class="col-md-1"><%= (i+1).to_s %>.</div>
+          <div class="col-md-2"><p>Text</p></div>
+          <div class="col-md-9"><%=@response.result["emotion"]["targets"][i]["text"]%></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p>Emotion</p></div>
+          <div class="col-md-9">
+              <p><strong>  Sadness/悲しみ :</strong> <%=@response.result["emotion"]["targets"][i]["emotion"]["sadness"]%></p>
+              <p><strong>  Joy/喜び :</strong> <%=@response.result["emotion"]["targets"][i]["emotion"]["joy"]%></p>
+              <p><strong>  Fear/恐れ :</strong> <%=@response.result["emotion"]["targets"][i]["emotion"]["fear"]%></p>
+              <p><strong>  Disgust/嫌悪 :</strong> <%=@response.result["emotion"]["targets"][i]["emotion"]["disgust"]%></p>
+              <p><strong>  Anger/怒り :</strong> <%=@response.result["emotion"]["targets"][i]["emotion"]["anger"]%></p>
+          </div>
+        </div>
+      <% end %>
+      <p><strong>Document</strong></p>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p>Emotion</p></div>
+          <div class="col-md-9">
+              <p><strong>  Sadness/悲しみ :</strong> <%=@response.result["emotion"]["document"]["emotion"]["sadness"]%></p>
+              <p><strong>  Joy/喜び :</strong> <%=@response.result["emotion"]["document"]["emotion"]["joy"]%></p>
+              <p><strong>  Fear/恐れ :</strong> <%=@response.result["emotion"]["document"]["emotion"]["fear"]%></p>
+              <p><strong>  Disgust/嫌悪 :</strong> <%=@response.result["emotion"]["document"]["emotion"]["disgust"]%></p>
+              <p><strong>  Anger/怒り :</strong> <%=@response.result["emotion"]["document"]["emotion"]["anger"]%></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Try again? <%= link_to "yes", nl_emotion_path %></p>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<% provide(:title, "NLU Concepts Result") %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <h1>Natural Language Understanding</h1>
+      <h3 class="center">Concepts</h3>
+      <h4>Usage</h4>
+      <div class="col-md-2 col-md-offset-1">
+        <strong><p>Text units </p>  
+        <p>Text characters</p>
+        <p>Features</p></strong>
+      </div>    
+      
+      <div class="col-md-9">
+        <p><%= @response.result["usage"]["text_units"]%></p>
+        <p><%= @response.result["usage"]["text_characters"]%></p>
+        <p><%= @response.result["usage"]["features"]%></p>
+      </div>
+    </div>
+    <div class="row">
+      <h4>Retrieved URL:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["retrieved_url"] %></p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <h4>Language:</h4>
+      <div class="col-md-11 col-md-offset-1">
+        <p><%= @response.result["language"] %></p>
+      </div>
+    </div>
+
+    <% if @formation==2 %>
+      <div class="row">
+        <h4>Retrieved URL:</h4>
+        <div class="col-md-11 col-md-offset-1">
+          <p><%= @response.result["retrieved_url"] %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <h4>Concept</h4>
+      <% (0..@response.result["concepts"].length-1).each do |i| %>
+        <div class="row">
+          <div class="col-md-1"><%= (i+1).to_s %>.</div>
+          <div class="col-md-2"><p><strong>Text</strong></p></div>
+          <div class="col-md-9"><%=@response.result["concepts"][i]["text"]%></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>Relevance</strong></p></div>
+          <div class="col-md-9"><%=@response.result["concepts"][i]["relevance"]%></div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2"><p><strong>DBPedia resource</strong></p></div>
+          <div class="col-md-9"><%=@response.result["concepts"][i]["dbpedia_resource"]%></div>
+        </div>
+      <% end %>
+      </div>
+    </div>
+    <p>Try again? <%= link_to "yes", nl_concept_path %></p>
+  </div>
+</div>
